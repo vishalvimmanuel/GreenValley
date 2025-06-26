@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery – Greenvalley High School</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #333;
+    }
+    header {
+      background: #2a9d8f;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    nav {
+      background: #181818;
+      padding: 0 2em;
+      display: flex;
+      align-items: center;
+      height: 64px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 30px;
+    }
+    nav .logo {
+      font-weight: bold;
+      font-size: 1.5em;
+      color: #00ffcc;
+      letter-spacing: 2px;
+      margin-right: 2em;
+      text-transform: uppercase;
+    }
+    nav a {
+      color: #fff;
+      margin-right: 1.5em;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active {
+      color: #00ffcc;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 3em auto;
+      padding: 2.5em 2em;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    h1 {
+      color: #2a9d8f;
+      font-size: 2.2em;
+      margin-bottom: 1.2em;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    /* Carousel */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 3em auto;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s;
+    }
+    .carousel img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(38,70,83,0.7);
+      color: #fff;
+      border: none;
+      font-size: 2em;
+      padding: 0 0.5em;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 2;
+    }
+    .carousel-btn.left { left: 10px; }
+    .carousel-btn.right { right: 10px; }
+    /* Grid Gallery */
+    .grid-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 3em;
+    }
+    .grid-gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .grid-gallery img:hover {
+      transform: scale(1.04);
+    }
+    /* Masonry Gallery */
+    .masonry-gallery {
+      column-count: 3;
+      column-gap: 18px;
+      margin-bottom: 3em;
+    }
+    .masonry-gallery img {
+      width: 100%;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: block;
+      break-inside: avoid;
+      object-fit: cover;
+    }
+    @media (max-width: 900px) {
+      .masonry-gallery { column-count: 2; }
+    }
+    @media (max-width: 600px) {
+      .masonry-gallery { column-count: 1; }
+      .container { padding: 1em; }
+      nav { flex-direction: column; height: auto; padding: 1em; }
+      nav .logo { margin-bottom: 0.7em; }
+    }
+    /* Horizontal Scroll Gallery */
+    .scroll-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 18px;
+      padding-bottom: 10px;
+      margin-bottom: 3em;
+    }
+    .scroll-gallery img {
+      height: 180px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      object-fit: cover;
+      flex-shrink: 0;
+      width: 300px;
+    }
+    /* Stacked Gallery */
+    .stacked-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 3em;
+    }
+    .stacked-gallery img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .stacked-gallery img:hover {
+      transform: scale(1.03);
+    }
+    /* Polaroid Gallery */
+    .polaroid-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 3em;
+    }
+    .polaroid {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      padding: 10px 10px 30px 10px;
+      width: 220px;
+      text-align: center;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .polaroid img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .polaroid-caption {
+      font-size: 1em;
+      color: #264653;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    /* Fade Gallery */
+    .fade-gallery {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto 3em auto;
+      height: 350px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      background: #eee;
+    }
+    .fade-gallery img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s;
+      border-radius: 12px;
+    }
+    .fade-gallery img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .fade-gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(38,70,83,0.7);
+      color: #fff;
+      border: none;
+      font-size: 2em;
+      padding: 0 0.5em;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 3;
+    }
+    .fade-gallery-btn.left { left: 10px; }
+    .fade-gallery-btn.right { right: 10px; }
+    .gallery-title {
+      font-size: 1.3em;
+      color: #264653;
+      margin: 2.5em 0 1em 0;
+      font-weight: 700;
+      border-left: 4px solid #00ffcc;
+      padding-left: 0.7em;
+    }
+    /* Lightbox Gallery */
+    .lightbox-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 3em;
+      justify-content: center;
+    }
+    .lightbox-gallery img {
+      width: 220px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .lightbox-gallery img:hover {
+      transform: scale(1.05);
+    }
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-modal.active {
+      display: flex;
+    }
+    .lightbox-modal img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 30px; right: 40px;
+      color: #fff;
+      font-size: 2.5em;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    /* Card Flip Gallery */
+    .flip-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 3em;
+    }
+    .flip-card {
+      background: transparent;
+      width: 220px;
+      height: 160px;
+      perspective: 1000px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%; height: 100%;
+      transition: transform 0.7s;
+      transform-style: preserve-3d;
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    .flip-card-front img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .flip-card-back {
+      background: #2a9d8f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1em;
+      transform: rotateY(180deg);
+      padding: 1em;
+      text-align: center;
+    }
+    /* Instagram Style Gallery */
+    .insta-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 3em;
+      justify-content: center;
+    }
+    .insta-gallery img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: box-shadow 0.2s;
+    }
+    .insta-gallery img:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    /* Timeline Gallery */
+    .timeline-gallery {
+      position: relative;
+      margin-bottom: 3em;
+      padding-left: 40px;
+      border-left: 4px solid #00ffcc;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5em;
+    }
+    .timeline-item img {
+      width: 220px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 0.5em;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -48px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      background: #2a9d8f;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .timeline-caption {
+      font-size: 1.05em;
+      color: #264653;
+      font-weight: 500;
+    }
+    /* 3D Cube Gallery */
+    .cube-gallery-container {
+      perspective: 1200px;
+      width: 350px;
+      height: 350px;
+      margin: 0 auto 3em auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cube-gallery {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(.4,2,.6,1);
+    }
+    .cube-face {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+    }
+    .cube-face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+    .cube-face.front  { transform: rotateY(0deg) translateZ(150px); }
+    .cube-face.back   { transform: rotateY(180deg) translateZ(150px); }
+    .cube-face.right  { transform: rotateY(90deg) translateZ(150px); }
+    .cube-face.left   { transform: rotateY(-90deg) translateZ(150px); }
+    .cube-face.top    { transform: rotateX(90deg) translateZ(150px); }
+    .cube-face.bottom { transform: rotateX(-90deg) translateZ(150px); }
+    .cube-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      margin-top: 1em;
+    }
+    .cube-nav button {
+      background: #2a9d8f;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      font-size: 1.3em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cube-nav button:hover {
+      background: #21867a;
+    }
+    /* Neon Hologram Gallery */
+    .holo-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      margin-bottom: 3em;
+    }
+    .holo-card {
+      position: relative;
+      width: 220px;
+      height: 160px;
+      background: #181c2f;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 0 32px 4px #00fff7a0, 0 2px 16px #0008;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.3s;
+    }
+    .holo-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 18px;
+      filter: brightness(0.85) contrast(1.1) drop-shadow(0 0 8px #00fff7cc);
+      transition: filter 0.3s;
+    }
+    .holo-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      pointer-events: none;
+      background: linear-gradient(135deg, #00fff7 0%, #2a9d8f 100%);
+      opacity: 0.18;
+      mix-blend-mode: screen;
+    }
+    .holo-card:hover {
+      box-shadow: 0 0 64px 8px #00fff7cc, 0 2px 32px #000a;
+    }
+    .holo-card:hover img {
+      filter: brightness(1.05) contrast(1.2) drop-shadow(0 0 16px #00fff7);
+    }
+    .holo-caption {
+      position: absolute;
+      bottom: 10px; left: 0; right: 0;
+      color: #fff;
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: 600;
+      text-shadow: 0 2px 8px #00fff7, 0 1px 2px #000a;
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>School Gallery</h1>
+    <p>Memorable moments at Greenvalley Matriculation High School</p>
+  </header>
+  <nav>
+    <span class="logo">SCHOOL</span>
+    <a href="home.html">Home</a>
+    <a href="admission.html">Admission</a>
+    <a href="classinfo.html">Classes</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="container">
+    <!-- 1. Carousel Gallery -->
+    <div class="gallery-title">1. Carousel Gallery</div>
+    <div class="carousel" id="carousel1">
+      <button class="carousel-btn left" onclick="moveCarousel(-1)">&#8592;</button>
+      <div class="carousel-images" id="carousel-images">
+        <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+      </div>
+      <button class="carousel-btn right" onclick="moveCarousel(1)">&#8594;</button>
+    </div>
+    <!-- 2. Grid Gallery -->
+    <div class="gallery-title">2. Grid Gallery</div>
+    <div class="grid-gallery">
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="School Event 5">
+      <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=800&q=80" alt="School Event 6">
+    </div>
+    <!-- 3. Masonry Gallery -->
+    <div class="gallery-title">3. Masonry Gallery</div>
+    <div class="masonry-gallery">
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="School Event 1">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=400&q=80" alt="School Event 4">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="School Event 5">
+      <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=400&q=80" alt="School Event 6">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="School Event 7">
+      <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=400&q=80" alt="School Event 8">
+    </div>
+    <!-- 4. Horizontal Scroll Gallery -->
+    <div class="gallery-title">4. Horizontal Scroll Gallery</div>
+    <div class="scroll-gallery">
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="School Event 5">
+      <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=800&q=80" alt="School Event 6">
+    </div>
+    <!-- 5. Stacked Gallery -->
+    <div class="gallery-title">5. Stacked Gallery</div>
+    <div class="stacked-gallery">
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+    </div>
+    <!-- 6. Polaroid Gallery -->
+    <div class="gallery-title">6. Polaroid Gallery</div>
+    <div class="polaroid-gallery">
+      <div class="polaroid">
+        <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+        <div class="polaroid-caption">Annual Day</div>
+      </div>
+      <div class="polaroid">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+        <div class="polaroid-caption">Sports Meet</div>
+      </div>
+      <div class="polaroid">
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+        <div class="polaroid-caption">Science Fair</div>
+      </div>
+      <div class="polaroid">
+        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+        <div class="polaroid-caption">Cultural Fest</div>
+      </div>
+    </div>
+    <!-- 7. Fade Gallery -->
+    <div class="gallery-title">7. Fade Gallery</div>
+    <div class="fade-gallery" id="fade-gallery">
+      <button class="fade-gallery-btn left" onclick="moveFadeGallery(-1)">&#8592;</button>
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1" class="active">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+      <button class="fade-gallery-btn right" onclick="moveFadeGallery(1)">&#8594;</button>
+    </div>
+    <!-- 8. Lightbox Gallery -->
+    <div class="gallery-title">8. Lightbox Gallery</div>
+    <div class="lightbox-gallery">
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+    </div>
+    <div class="lightbox-modal" id="lightbox-modal">
+      <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+      <img src="" alt="Large Preview" id="lightbox-img">
+    </div>
+    <!-- 9. Card Flip Gallery -->
+    <div class="gallery-title">9. Card Flip Gallery</div>
+    <div class="flip-gallery">
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+          </div>
+          <div class="flip-card-back">Annual Day Celebration</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+          </div>
+          <div class="flip-card-back">Sports Meet</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+          </div>
+          <div class="flip-card-back">Science Fair</div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+          </div>
+          <div class="flip-card-back">Cultural Fest</div>
+        </div>
+      </div>
+    </div>
+    <!-- 10. Instagram Style Gallery -->
+    <div class="gallery-title">10. Instagram Style Gallery</div>
+    <div class="insta-gallery">
+      <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+      <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+      <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="School Event 5">
+      <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=800&q=80" alt="School Event 6">
+    </div>
+    <!-- 11. Timeline Gallery -->
+    <div class="gallery-title">11. Timeline Gallery</div>
+    <div class="timeline-gallery">
+      <div class="timeline-item">
+        <span class="timeline-dot"></span>
+        <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="School Event 1">
+        <div class="timeline-caption">1990: School Inauguration</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot"></span>
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="School Event 2">
+        <div class="timeline-caption">2005: First Sports Meet</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot"></span>
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="School Event 3">
+        <div class="timeline-caption">2015: Science Fair</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-dot"></span>
+        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="School Event 4">
+        <div class="timeline-caption">2024: Cultural Fest</div>
+      </div>
+    </div>
+    <!-- 12. 3D Cube Gallery -->
+    <div class="gallery-title">12. 3D Cube Gallery</div>
+    <div class="cube-gallery-container">
+      <div class="cube-gallery" id="cube-gallery">
+        <div class="cube-face front"><img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="Front"></div>
+        <div class="cube-face back"><img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="Back"></div>
+        <div class="cube-face right"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="Right"></div>
+        <div class="cube-face left"><img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="Left"></div>
+        <div class="cube-face top"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="Top"></div>
+        <div class="cube-face bottom"><img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=800&q=80" alt="Bottom"></div>
+      </div>
+    </div>
+    <div class="cube-nav">
+      <button onclick="rotateCube('left')">&#8592;</button>
+      <button onclick="rotateCube('right')">&#8594;</button>
+      <button onclick="rotateCube('up')">&#8593;</button>
+      <button onclick="rotateCube('down')">&#8595;</button>
+    </div>
+    <!-- 13. Neon Hologram Gallery -->
+    <div class="gallery-title">13. Neon Hologram Gallery</div>
+    <div class="holo-gallery">
+      <div class="holo-card">
+        <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=800&q=80" alt="Holo 1">
+        <div class="holo-caption">Annual Day</div>
+      </div>
+      <div class="holo-card">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80" alt="Holo 2">
+        <div class="holo-caption">Sports Meet</div>
+      </div>
+      <div class="holo-card">
+        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80" alt="Holo 3">
+        <div class="holo-caption">Science Fair</div>
+      </div>
+      <div class="holo-card">
+        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=800&q=80" alt="Holo 4">
+        <div class="holo-caption">Cultural Fest</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Greenvalley Matriculation High School. All rights reserved.
+  </footer>
+  <script>
+    // Carousel functionality
+    let carouselIndex = 0;
+    const images = document.querySelectorAll('#carousel-images img');
+    function showCarouselImage(idx) {
+      const carouselImages = document.getElementById('carousel-images');
+      if (!carouselImages) return;
+      const total = images.length;
+      if (idx < 0) carouselIndex = total - 1;
+      else if (idx >= total) carouselIndex = 0;
+      else carouselIndex = idx;
+      carouselImages.style.transform = `translateX(-${carouselIndex * 100}%)`;
+    }
+    function moveCarousel(dir) {
+      showCarouselImage(carouselIndex + dir);
+    }
+    // Initialize
+    showCarouselImage(0);
+
+    // Fade Gallery functionality
+    let fadeIndex = 0;
+    const fadeImages = document.querySelectorAll('#fade-gallery img');
+    function showFadeImage(idx) {
+      if (!fadeImages.length) return;
+      const total = fadeImages.length;
+      if (idx < 0) fadeIndex = total - 1;
+      else if (idx >= total) fadeIndex = 0;
+      else fadeIndex = idx;
+      fadeImages.forEach((img, i) => {
+        img.classList.toggle('active', i === fadeIndex);
+      });
+    }
+    function moveFadeGallery(dir) {
+      showFadeImage(fadeIndex + dir);
+    }
+    showFadeImage(0);
+
+    // Lightbox Gallery functionality
+    const lightboxImages = document.querySelectorAll('.lightbox-gallery img');
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxModal.classList.add('active');
+      });
+    });
+    function closeLightbox() {
+      lightboxModal.classList.remove('active');
+      lightboxImg.src = '';
+    }
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) closeLightbox();
+    });
+
+    // 3D Cube Gallery functionality
+    let cubeX = 0, cubeY = 0;
+    function rotateCube(dir) {
+      if (dir === 'left') cubeY -= 90;
+      if (dir === 'right') cubeY += 90;
+      if (dir === 'up') cubeX += 90;
+      if (dir === 'down') cubeX -= 90;
+      document.getElementById('cube-gallery').style.transform = `rotateX(${cubeX}deg) rotateY(${cubeY}deg)`;
+    }
+    // Initialize cube
+    rotateCube('');
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Greenvalley High School – Home</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #333;
+    }
+    header {
+      background: #2a9d8f;
+      padding: 30px 20px 20px 20px;
+      color: white;
+      text-align: center;
+    }
+    nav {
+      background: #181818;
+      padding: 0 2em;
+      display: flex;
+      align-items: center;
+      height: 64px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 30px;
+    }
+    nav .logo {
+      font-weight: bold;
+      font-size: 1.5em;
+      color: #00ffcc;
+      letter-spacing: 2px;
+      margin-right: 2em;
+      text-transform: uppercase;
+    }
+    nav a {
+      color: #fff;
+      margin-right: 1.5em;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover, nav a.active {
+      color: #00ffcc;
+    }
+    .container {
+      max-width: 900px;
+      margin: 3em auto;
+      padding: 2.5em 2em;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      text-align: center;
+    }
+    h1 {
+      color: #2a9d8f;
+      font-size: 2.5em;
+      margin-bottom: 0.3em;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    h2 {
+      color: #264653;
+      margin-top: 2em;
+      font-size: 1.3em;
+      font-weight: 700;
+      border-left: 4px solid #00ffcc;
+      padding-left: 0.7em;
+      text-align: left;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 2em;
+      gap: 2em;
+    }
+    .feature {
+      background: #f0f4f8;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 1.5em 1em;
+      flex: 1 1 250px;
+      min-width: 220px;
+      text-align: left;
+    }
+    .feature h3 {
+      color: #2a9d8f;
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+    }
+    .feature p {
+      font-size: 1em;
+      color: #333;
+    }
+    .cta {
+      margin: 2.5em 0 1em 0;
+      font-size: 1.2em;
+      color: #264653;
+    }
+    .cta a {
+      color: #fff;
+      background: #2a9d8f;
+      padding: 0.7em 1.5em;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 1em;
+      transition: background 0.2s;
+    }
+    .cta a:hover {
+      background: #21867a;
+    }
+    footer {
+      text-align: center;
+      padding: 2em 0 1em 0;
+      background: #264653;
+      color: #fff;
+      font-size: 1em;
+      margin-top: 3em;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 800px) {
+      .features { flex-direction: column; align-items: stretch; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1em; }
+      nav { flex-direction: column; height: auto; padding: 1em; }
+      nav .logo { margin-bottom: 0.7em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Greenvalley Matriculation High School</h1>
+    <p>Welcome to a place where learning is joyful and every child shines!</p>
+  </header>
+  <nav>
+    <span class="logo">SCHOOL</span>
+    <a href="home.html" class="active">Home</a>
+    <a href="admission.html">Admission</a>
+    <a href="classinfo.html">Classes</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="container">
+    <h1>Welcome to Greenvalley!</h1>
+    <p>
+      At Greenvalley Matriculation High School, we nurture young minds to become confident, creative, and compassionate individuals. Our school blends academic excellence with a vibrant co-curricular program, modern facilities, and a caring community.
+    </p>
+    <div class="features">
+      <div class="feature">
+        <h3>Academic Excellence</h3>
+        <p>Our experienced faculty and innovative teaching methods ensure every student reaches their full potential.</p>
+      </div>
+      <div class="feature">
+        <h3>Modern Facilities</h3>
+        <p>Spacious classrooms, science labs, computer labs, and a well-stocked library create a perfect learning environment.</p>
+      </div>
+      <div class="feature">
+        <h3>Holistic Development</h3>
+        <p>We offer sports, arts, music, and leadership programs to foster all-round growth.</p>
+      </div>
+      <div class="feature">
+        <h3>Safe & Caring Campus</h3>
+        <p>Our campus is secure, inclusive, and welcoming to all students and families.</p>
+      </div>
+    </div>
+    <div class="cta">
+      Ready to join us?
+      <a href="admission.html">Apply for Admission</a>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Greenvalley Matriculation High School. All rights reserved.
+  </footer>
+</body>
+</html>
